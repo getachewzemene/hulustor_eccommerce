@@ -55,96 +55,107 @@ class _MyHomePageState extends State<MyHomePage> {
           drawer: const NavDrawer(),
           body: SafeArea(
             child: SingleChildScrollView(
+              controller: ScrollController(),
               child: Column(
+                mainAxisSize: MainAxisSize.min,
                 children: [
                   const ItemCarousel(),
                   const SizedBox(
-                    height: 10.0,
+                    height: 30.0,
                   ),
-                  Consumer<ProductProvider>(
-                      builder: ((context, productProvider, child) =>
-                          ListView.builder(
-                              shrinkWrap: true,
-                              itemCount: productProvider.getProductList.length,
-                              itemBuilder: (context, index) {
-                                return Card(
-                                  semanticContainer: true,
-                                  clipBehavior: Clip.antiAliasWithSaveLayer,
-                                  shadowColor: Colors.grey,
-                                  color: Colors.amberAccent,
-                                  margin: const EdgeInsets.only(
-                                      left: 8, right: 8, bottom: 24),
-                                  elevation: 8,
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(32)),
-                                  child: Column(
-                                    children: <Widget>[
-                                      ClipRRect(
+                  const Text("Popular Products"),
+                  const SizedBox(
+                    height: 30.0,
+                  ),
+                  Flexible(
+                    child: Consumer<ProductProvider>(
+                        builder: ((context, productProvider, child) =>
+                            ListView.builder(
+                                scrollDirection: Axis.vertical,
+                                controller: ScrollController(),
+                                shrinkWrap: true,
+                                itemCount:
+                                    productProvider.getProductList.length,
+                                itemBuilder: (context, index) {
+                                  return Card(
+                                    semanticContainer: true,
+                                    clipBehavior: Clip.antiAliasWithSaveLayer,
+                                    shadowColor: Colors.grey,
+                                    color: Colors.amberAccent,
+                                    margin: const EdgeInsets.only(
+                                        left: 30, right: 30, bottom: 24),
+                                    elevation: 8,
+                                    shape: RoundedRectangleBorder(
                                         borderRadius:
-                                            const BorderRadius.vertical(
-                                                top: Radius.circular(32),
-                                                bottom: Radius.circular(32)),
-                                        child: Container(
-                                            height: MediaQuery.of(context)
-                                                    .size
-                                                    .height /
-                                                2,
-                                            decoration: BoxDecoration(
-                                                image: DecorationImage(
-                                              image: AssetImage(
-                                                productProvider
-                                                    .getProductList[index]
-                                                    .imageURL,
-                                              ),
-                                              fit: BoxFit.fill,
-                                              alignment: Alignment.topCenter,
-                                            ))),
-                                      ),
-                                      const SizedBox(height: 8),
-                                      Text(
-                                          productProvider
-                                              .getProductList[index].name,
-                                          style: const TextStyle(fontSize: 20)),
-                                      const SizedBox(height: 2),
-                                      Text(
-                                          productProvider
-                                              .getProductList[index].id
-                                              .toString(),
-                                          style: const TextStyle(
-                                              color: Colors.grey)),
-                                      Padding(
-                                        padding: const EdgeInsets.all(20.0),
-                                        child: Row(
-                                          children: <Widget>[
-                                            MaterialButton(
-                                              color: const Color(0xFF162A49),
-                                              child: const Text('Add to cart'),
-                                              textColor: Colors.white,
-                                              shape: RoundedRectangleBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(32),
-                                              ),
-                                              onPressed: () {},
-                                            ),
-                                            const Spacer(),
-                                            Text(
-                                              productProvider
+                                            BorderRadius.circular(32)),
+                                    child: Column(
+                                      children: <Widget>[
+                                        ClipRRect(
+                                          borderRadius:
+                                              const BorderRadius.vertical(
+                                                  top: Radius.circular(32),
+                                                  bottom: Radius.circular(32)),
+                                          child: Container(
+                                              height: 200,
+                                              decoration: BoxDecoration(
+                                                  image: DecorationImage(
+                                                image: AssetImage(
+                                                  productProvider
                                                       .getProductList[index]
-                                                      .price
-                                                      .toString() +
-                                                  " Birr",
-                                              style: const TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 20,
-                                              ),
-                                            ),
-                                          ],
+                                                      .imageURL,
+                                                ),
+                                                fit: BoxFit.fill,
+                                                alignment: Alignment.topCenter,
+                                              ))),
                                         ),
-                                      ),
-                                    ],
-                                  ),
-                                );
-                              }))),
+                                        const SizedBox(height: 8),
+                                        Text(
+                                            productProvider
+                                                .getProductList[index].name,
+                                            style:
+                                                const TextStyle(fontSize: 20)),
+                                        const SizedBox(height: 2),
+                                        Text(
+                                            productProvider
+                                                .getProductList[index].id
+                                                .toString(),
+                                            style: const TextStyle(
+                                                color: Colors.grey)),
+                                        Padding(
+                                          padding: const EdgeInsets.all(20.0),
+                                          child: Row(
+                                            children: <Widget>[
+                                              MaterialButton(
+                                                color: const Color(0xFF162A49),
+                                                child:
+                                                    const Text('Add to cart'),
+                                                textColor: Colors.white,
+                                                shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(32),
+                                                ),
+                                                onPressed: () {},
+                                              ),
+                                              const Spacer(),
+                                              Text(
+                                                productProvider
+                                                        .getProductList[index]
+                                                        .price
+                                                        .toString() +
+                                                    " Birr",
+                                                style: const TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 20,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  );
+                                }))),
+                  ),
                 ],
               ),
             ),

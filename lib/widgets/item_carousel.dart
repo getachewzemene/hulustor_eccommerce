@@ -44,75 +44,71 @@ class _ItemCarouselState extends State<ItemCarousel> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.grey,
-      child: Column(
-          mainAxisSize: MainAxisSize.max,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Stack(
-              fit: StackFit.loose,
-              children: [
-                CarouselSlider.builder(
-                    itemCount: images.length,
-                    itemBuilder: (context, index, next) {
-                      return ClipRRect(
-                        child: Container(
-                          height: MediaQuery.of(context).size.height / 2,
-                          decoration: BoxDecoration(
-                              image: DecorationImage(
-                            image: AssetImage(
-                              images[index],
-                            ),
-                            fit: BoxFit.fill,
-                            alignment: Alignment.topCenter,
-                          )),
-                        ),
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(15.0)),
-                      );
-                    },
-                    //items: ,
-                    options: CarouselOptions(
-                        autoPlay: false,
-                        height: 200,
-                        aspectRatio: 18 / 10,
-                        viewportFraction: 1,
-                        initialPage: 0,
-                        reverse: false,
-                        enlargeCenterPage: true,
-                        enableInfiniteScroll: true,
-                        pageSnapping: true,
-                        autoPlayCurve: Curves.fastOutSlowIn,
-                        enlargeStrategy: CenterPageEnlargeStrategy.height,
-                        autoPlayInterval: const Duration(seconds: 5),
-                        autoPlayAnimationDuration:
-                            const Duration(milliseconds: 2000),
-                        pauseAutoPlayOnTouch: true,
-                        scrollDirection: Axis.horizontal,
-                        onPageChanged: (index, next) {
-                          setState(() {
-                            currentIndex = index;
-                          });
-                        })),
-                AspectRatio(
+      decoration: const BoxDecoration(
+          color: Colors.black12,
+          borderRadius: BorderRadius.all(Radius.circular(20.0))),
+      child: Stack(
+        fit: StackFit.loose,
+        children: [
+          CarouselSlider.builder(
+              itemCount: images.length,
+              itemBuilder: (context, index, next) {
+                return ClipRRect(
+                  child: Container(
+                    height: MediaQuery.of(context).size.height / 2,
+                    decoration: BoxDecoration(
+                        image: DecorationImage(
+                      image: AssetImage(
+                        images[index],
+                      ),
+                      fit: BoxFit.fill,
+                      alignment: Alignment.topCenter,
+                    )),
+                  ),
+                  borderRadius: const BorderRadius.vertical(
+                      top: Radius.circular(32), bottom: Radius.circular(32)),
+                );
+              },
+              //items: ,
+              options: CarouselOptions(
+                  autoPlay: true,
+                  height: 300,
                   aspectRatio: 18 / 10,
-                  child: Center(
-                      child: Padding(
-                    padding: const EdgeInsets.only(top: 30.0),
-                    child: Text(
-                      names[currentIndex],
-                      style: const TextStyle(
-                          decoration: TextDecoration.none,
-                          color: Color.fromARGB(255, 230, 23, 23),
-                          fontWeight: FontWeight.w600,
-                          fontSize: 14.0),
-                    ),
-                  )),
-                )
-              ],
+                  viewportFraction: 1,
+                  initialPage: 0,
+                  reverse: false,
+                  enlargeCenterPage: true,
+                  enableInfiniteScroll: true,
+                  pageSnapping: true,
+                  autoPlayCurve: Curves.fastOutSlowIn,
+                  enlargeStrategy: CenterPageEnlargeStrategy.height,
+                  autoPlayInterval: const Duration(seconds: 5),
+                  autoPlayAnimationDuration: const Duration(milliseconds: 2000),
+                  pauseAutoPlayOnTouch: true,
+                  scrollDirection: Axis.horizontal,
+                  onPageChanged: (index, next) {
+                    setState(() {
+                      currentIndex = index;
+                    });
+                  })),
+          AspectRatio(
+            aspectRatio: 18 / 10,
+            child: Center(
+              child: Padding(
+                padding: const EdgeInsets.only(top: 180.0),
+                child: Text(
+                  names[currentIndex],
+                  style: const TextStyle(
+                      decoration: TextDecoration.none,
+                      color: Color.fromARGB(255, 10, 187, 211),
+                      fontWeight: FontWeight.bold,
+                      fontSize: 14.0),
+                ),
+              ),
             ),
-            // Center(child: _buildIndicator())
-          ]),
+          )
+        ],
+      ),
     );
   }
 }
