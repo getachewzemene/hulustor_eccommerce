@@ -20,6 +20,7 @@ class MyApp extends StatelessWidget {
       themeMode: ThemeMode.system,
       theme: ThemeData(
         primarySwatch: Colors.blue,
+        visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       home: const MyHomePage(title: 'Hulu Store'),
     );
@@ -36,33 +37,156 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  int _selectedIndex = 0;
+  void _onItemTapped(int index) async {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
       create: (context) => ProductProvider(),
       child: Scaffold(
-        appBar: AppBar(
-          title: Text(widget.title),
-        ),
-        drawer: const NavDrawer(),
-        body: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: const [
-              ItemCarousel(),
-              Text(
-                'You have pushed the button this many times:',
-              ),
-            ],
+          appBar: AppBar(
+            title: Text(widget.title),
           ),
-        ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {},
-          tooltip: 'Increment',
-          child: const Icon(Icons.add),
-        ),
-      ),
+          drawer: const NavDrawer(),
+          body: SafeArea(
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  const ItemCarousel(),
+                  const SizedBox(
+                    height: 10.0,
+                  ),
+                  Consumer<ProductProvider>(
+                      builder: ((context, productProvider, child) =>
+                          ListView.builder(
+                              shrinkWrap: true,
+                              itemCount: productProvider.getProductList.length,
+                              itemBuilder: (context, index) {
+                                return Card(
+                                  semanticContainer: true,
+                                  clipBehavior: Clip.antiAliasWithSaveLayer,
+                                  shadowColor: Colors.grey,
+                                  color: Colors.amberAccent,
+                                  margin: const EdgeInsets.only(
+                                      left: 8, right: 8, bottom: 24),
+                                  elevation: 8,
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(32)),
+                                  child: Column(
+                                    children: <Widget>[
+                                      ClipRRect(
+                                        borderRadius:
+                                            const BorderRadius.vertical(
+                                                top: Radius.circular(32),
+                                                bottom: Radius.circular(32)),
+                                        child: Container(
+                                            height: MediaQuery.of(context)
+                                                    .size
+                                                    .height /
+                                                2,
+                                            decoration: BoxDecoration(
+                                                image: DecorationImage(
+                                              image: AssetImage(
+                                                productProvider
+                                                    .getProductList[index]
+                                                    .imageURL,
+                                              ),
+                                              fit: BoxFit.fill,
+                                              alignment: Alignment.topCenter,
+                                            ))),
+                                      ),
+                                      const SizedBox(height: 8),
+                                      Text(
+                                          productProvider
+                                              .getProductList[index].name,
+                                          style: const TextStyle(fontSize: 20)),
+                                      const SizedBox(height: 2),
+                                      Text(
+                                          productProvider
+                                              .getProductList[index].id
+                                              .toString(),
+                                          style: const TextStyle(
+                                              color: Colors.grey)),
+                                      Padding(
+                                        padding: const EdgeInsets.all(20.0),
+                                        child: Row(
+                                          children: <Widget>[
+                                            MaterialButton(
+                                              color: const Color(0xFF162A49),
+                                              child: const Text('Add to cart'),
+                                              textColor: Colors.white,
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(32),
+                                              ),
+                                              onPressed: () {},
+                                            ),
+                                            const Spacer(),
+                                            Text(
+                                              productProvider
+                                                      .getProductList[index]
+                                                      .price
+                                                      .toString() +
+                                                  " Birr",
+                                              style: const TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 20,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              }))),
+                ],
+              ),
+            ),
+          ),
+          floatingActionButton: FloatingActionButton(
+            onPressed: () {},
+            tooltip: 'Increment',
+            child: const Icon(Icons.add),
+          ),
+          bottomNavigationBar: BottomNavigationBar(
+              showSelectedLabels: true,
+              showUnselectedLabels: true,
+              //fixedColor: Colors.redAccent,
+              backgroundColor: Colors.blue,
+              // unselectedItemColor: Colors.white,
+              items: const <BottomNavigationBarItem>[
+                BottomNavigationBarItem(
+                    icon: Icon(Icons.home),
+                    label: "Home",
+                    backgroundColor: Colors.blue),
+                // BottomNavigationBarItem(
+                //     icon: Icon(Icons.search),
+                //     label: 'search'.tr,
+                //     backgroundColor: Colors.red),
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.add),
+                  label: 'Add Product',
+                  backgroundColor: Colors.blue,
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.help_outline),
+                  label: 'Aboout',
+                  backgroundColor: Colors.blue,
+                ),
+              ],
+              type: BottomNavigationBarType.shifting,
+              currentIndex: _selectedIndex,
+              selectedItemColor: Colors.white,
+              unselectedLabelStyle: const TextStyle(color: Colors.white),
+              iconSize: 20,
+              onTap: _onItemTapped,
+              elevation: 1)),
     );
   }
 }

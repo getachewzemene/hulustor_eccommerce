@@ -18,18 +18,18 @@ class ProductProvider extends ChangeNotifier {
         imageURL: "assets/products/burno_marc.jpg"),
     Product(
         id: 3,
-        name: "Hoodi Sneaker",
+        name: "Hoodi Men's Jacket",
         price: 1200,
         productSummary: "Best men's Hoodi shirt with different size and color",
         imageURL: "assets/products/hoodi.jpg"),
     Product(
         id: 4,
-        name: "Jordan Shoe Sneaker",
+        name: "Jordan Sneaker",
         price: 4500,
         productSummary: "Best Jordan men's shoes with different size and color",
         imageURL: "assets/products/jordan_shoe.webp"),
   ];
-  List<Product> getProductList() => _productList;
+  List<Product> get getProductList => _productList;
   void addProduct() {
     notifyListeners();
   }
