@@ -2,12 +2,12 @@ class Product {
   int id;
   String name;
   double price;
-  String detailSummary;
+  String productSummary;
   String imageURL;
   Product(
       {required this.id,
       required this.name,
       required this.price,
-      required this.detailSummary,
+      required this.productSummary,
       required this.imageURL});
 }

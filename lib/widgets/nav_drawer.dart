@@ -6,33 +6,51 @@ class NavDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
-      child: ListView(
-        children: [
-          const DrawerHeader(
-            decoration: BoxDecoration(
-              color: Colors.blue,
+      child: InkWell(
+        onTap: () => Navigator.of(context).pop(),
+        child: ListView(
+          children: [
+            ClipRRect(
+              clipBehavior: Clip.hardEdge,
+              borderRadius: const BorderRadius.only(
+                  bottomLeft: Radius.zero, bottomRight: Radius.circular(100.0)),
+              child: DrawerHeader(
+                decoration: const BoxDecoration(
+                    gradient: LinearGradient(
+                        colors: <Color>[Colors.deepPurple, Colors.cyanAccent])),
+                child: Center(
+                  child: Column(children: const [
+                    Icon(Icons.shop_2_sharp),
+                    Text('Hulu Store')
+                  ]),
+                ),
+              ),
             ),
-            child: Text('Drawer Header'),
-          ),
-          ListTile(
-            title: const Text('Item 1'),
-            onTap: () {
-              // Update the state of the app
-              // ...
-              // Then close the drawer
-              Navigator.pop(context);
-            },
-          ),
-          ListTile(
-            title: const Text('Item 2'),
-            onTap: () {
-              // Update the state of the app
-              // ...
-              // Then close the drawer
-              Navigator.pop(context);
-            },
-          ),
-        ],
+            ListTile(
+              leading: const Icon(Icons.details_rounded),
+              title: const Text('Product Detail'),
+              onTap: () {
+                Navigator.pop(context);
+              },
+            ),
+            const Divider(),
+            ListTile(
+              leading: const Icon(Icons.add),
+              title: const Text('Add Item'),
+              onTap: () {
+                Navigator.pop(context);
+              },
+            ),
+            const Divider(),
+            ListTile(
+              leading: const Icon(Icons.share),
+              title: const Text('Share'),
+              onTap: () {
+                Navigator.pop(context);
+              },
+            ),
+          ],
+        ),
       ),
     );
   }
