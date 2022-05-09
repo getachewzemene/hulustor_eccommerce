@@ -61,6 +61,8 @@ flutter:
     - assets/products/lander_navy.webp
     - assets/products/leather_jack.webp
     - assets/products/lander_shoe.webp
+    - assets/products/hoodi_shirt.jpeg
+    - assets/products/hoodi_white.jpg
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
   # For details regarding adding assets from package dependencies, see

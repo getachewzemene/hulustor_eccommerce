@@ -14,22 +14,24 @@ class _ItemCarouselState extends State<ItemCarousel> {
   List<String> images = [
     "assets/products/arlo_sneaker.webp",
     "assets/products/burno_marc.jpg",
-    "assets/products/hoodi.jpg",
+    "assets/products/hoodi_white.jpg",
     "assets/products/jordan_shoe.webp",
     "assets/products/lander_black.webp",
     "assets/products/lander_navy.webp",
     "assets/products/leather_jack.webp",
-    "assets/products/lander_shoe.webp"
+    "assets/products/lander_shoe.webp",
+    "assets/products/hoodi_shirt.jpeg"
   ];
   List<String> names = [
     "Arlo Men's Sneaker",
     "Burno Marc Sneaker",
-    'Hoodi',
+    'White Hoodi ',
     'Jordan Shoe',
     'Lander Black Shoe',
     'Lander Navy Sheo',
     "Leather Men's Jacket",
-    "Lander Shoe"
+    "Lander Shoe",
+    "Black Hoodi"
   ];
   // Widget _buildIndicator() => AnimatedSmoothIndicator(
   //       count: images.length,
@@ -55,7 +57,7 @@ class _ItemCarouselState extends State<ItemCarousel> {
               itemBuilder: (context, index, next) {
                 return ClipRRect(
                   child: Container(
-                    height: MediaQuery.of(context).size.height / 2,
+                    height: MediaQuery.of(context).size.height / 3,
                     decoration: BoxDecoration(
                         image: DecorationImage(
                       image: AssetImage(
@@ -72,7 +74,7 @@ class _ItemCarouselState extends State<ItemCarousel> {
               //items: ,
               options: CarouselOptions(
                   autoPlay: true,
-                  height: 300,
+                  height: 250,
                   aspectRatio: 18 / 10,
                   viewportFraction: 1,
                   initialPage: 0,
@@ -100,7 +102,7 @@ class _ItemCarouselState extends State<ItemCarousel> {
                   names[currentIndex],
                   style: const TextStyle(
                       decoration: TextDecoration.none,
-                      color: Color.fromARGB(255, 10, 187, 211),
+                      color: Color.fromARGB(255, 235, 8, 8),
                       fontWeight: FontWeight.bold,
                       fontSize: 14.0),
                 ),

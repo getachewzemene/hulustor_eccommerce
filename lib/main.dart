@@ -1,5 +1,9 @@
-import 'package:ecommerce_app/models/product.dart';
-import 'package:ecommerce_app/product_provider/product_provider.dart';
+import 'package:ecommerce_app/providers/cart_provider.dart';
+import 'package:ecommerce_app/providers/product_provider.dart';
+import 'package:ecommerce_app/ui/car_detail.dart';
+import 'package:ecommerce_app/ui/product_detail.dart';
+import 'package:ecommerce_app/widgets/bottom_navigation.dart';
+import 'package:ecommerce_app/widgets/cart_icon.dart';
 import 'package:ecommerce_app/widgets/item_carousel.dart';
 import 'package:ecommerce_app/widgets/nav_drawer.dart';
 import 'package:flutter/material.dart';
@@ -14,15 +18,21 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Hulu Store',
-      debugShowCheckedModeBanner: false,
-      themeMode: ThemeMode.system,
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => ProductProvider()),
+        ChangeNotifierProvider(create: (context) => CartProvider()),
+      ],
+      child: MaterialApp(
+        title: 'Hulu Store',
+        debugShowCheckedModeBanner: false,
+        themeMode: ThemeMode.system,
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+          visualDensity: VisualDensity.adaptivePlatformDensity,
+        ),
+        home: const MyHomePage(title: 'Hulu Store'),
       ),
-      home: const MyHomePage(title: 'Hulu Store'),
     );
   }
 }
@@ -37,167 +47,150 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _selectedIndex = 0;
-  void _onItemTapped(int index) async {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (context) => ProductProvider(),
-      child: Scaffold(
-          appBar: AppBar(
-            title: Text(widget.title),
-          ),
-          drawer: const NavDrawer(),
-          body: SafeArea(
-            child: SingleChildScrollView(
-              controller: ScrollController(),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  const ItemCarousel(),
-                  const SizedBox(
-                    height: 30.0,
-                  ),
-                  const Text("Popular Products"),
-                  const SizedBox(
-                    height: 30.0,
-                  ),
-                  Flexible(
-                    child: Consumer<ProductProvider>(
-                        builder: ((context, productProvider, child) =>
-                            ListView.builder(
-                                scrollDirection: Axis.vertical,
-                                controller: ScrollController(),
-                                shrinkWrap: true,
-                                itemCount:
-                                    productProvider.getProductList.length,
-                                itemBuilder: (context, index) {
-                                  return Card(
+    return Scaffold(
+        appBar: AppBar(title: Text(widget.title), actions: const [CartIcon()]),
+        drawer: const NavDrawer(),
+        body: SafeArea(
+          child: SingleChildScrollView(
+            controller: ScrollController(),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const ItemCarousel(),
+                const SizedBox(
+                  height: 20.0,
+                ),
+                const Text("Popular Products"),
+                const SizedBox(
+                  height: 10.0,
+                ),
+                Consumer<ProductProvider>(
+                    builder: ((context, productProvider, child) =>
+                        GridView.builder(
+                            scrollDirection: Axis.vertical,
+                            controller: ScrollController(),
+                            shrinkWrap: true,
+                            itemCount: productProvider.getProductList.length,
+                            gridDelegate:
+                                const SliverGridDelegateWithFixedCrossAxisCount(
+                                    crossAxisCount: 2,
+                                    crossAxisSpacing: 8.0,
+                                    mainAxisSpacing: 2.0),
+                            itemBuilder: (context, index) {
+                              return FittedBox(
+                                child: GestureDetector(
+                                  onTap: (() => Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => ProductDetail(
+                                              productItem: productProvider
+                                                  .getProductList[index])))),
+                                  child: Card(
                                     semanticContainer: true,
                                     clipBehavior: Clip.antiAliasWithSaveLayer,
                                     shadowColor: Colors.grey,
                                     color: Colors.amberAccent,
-                                    margin: const EdgeInsets.only(
-                                        left: 30, right: 30, bottom: 24),
+                                    margin: const EdgeInsets.all(10.0),
                                     elevation: 8,
                                     shape: RoundedRectangleBorder(
                                         borderRadius:
                                             BorderRadius.circular(32)),
-                                    child: Column(
-                                      children: <Widget>[
-                                        ClipRRect(
-                                          borderRadius:
-                                              const BorderRadius.vertical(
-                                                  top: Radius.circular(32),
-                                                  bottom: Radius.circular(32)),
-                                          child: Container(
-                                              height: 200,
-                                              decoration: BoxDecoration(
-                                                  image: DecorationImage(
-                                                image: AssetImage(
-                                                  productProvider
-                                                      .getProductList[index]
-                                                      .imageURL,
-                                                ),
-                                                fit: BoxFit.fill,
-                                                alignment: Alignment.topCenter,
-                                              ))),
-                                        ),
-                                        const SizedBox(height: 8),
-                                        Text(
-                                            productProvider
-                                                .getProductList[index].name,
-                                            style:
-                                                const TextStyle(fontSize: 20)),
-                                        const SizedBox(height: 2),
-                                        Text(
-                                            productProvider
-                                                .getProductList[index].id
-                                                .toString(),
-                                            style: const TextStyle(
-                                                color: Colors.grey)),
-                                        Padding(
-                                          padding: const EdgeInsets.all(20.0),
-                                          child: Row(
+                                    child: SizedBox(
+                                      height: 350.0,
+                                      width: MediaQuery.of(context).size.width,
+                                      child: Column(
+                                        children: <Widget>[
+                                          ClipRRect(
+                                            borderRadius:
+                                                const BorderRadius.vertical(
+                                                    top: Radius.circular(32),
+                                                    bottom:
+                                                        Radius.circular(32)),
+                                            child: Container(
+                                                height: 250,
+                                                decoration: BoxDecoration(
+                                                    image: DecorationImage(
+                                                  image: AssetImage(
+                                                    productProvider
+                                                        .getProductList[index]
+                                                        .imageURL,
+                                                  ),
+                                                  fit: BoxFit.fill,
+                                                  alignment:
+                                                      Alignment.topCenter,
+                                                ))),
+                                          ),
+                                          const SizedBox(height: 8),
+                                          Text(
+                                              productProvider
+                                                  .getProductList[index].name,
+                                              style: const TextStyle(
+                                                  fontWeight: FontWeight.w800,
+                                                  fontSize: 20)),
+                                          const SizedBox(height: 2),
+                                          Text(
+                                              productProvider
+                                                  .getProductList[index].id
+                                                  .toString(),
+                                              style: const TextStyle(
+                                                  color: Colors.grey)),
+                                          const SizedBox(
+                                            height: 2.0,
+                                          ),
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceAround,
                                             children: <Widget>[
                                               MaterialButton(
                                                 color: const Color(0xFF162A49),
                                                 child:
-                                                    const Text('Add to cart'),
+                                                    const Text('view detail'),
                                                 textColor: Colors.white,
                                                 shape: RoundedRectangleBorder(
                                                   borderRadius:
                                                       BorderRadius.circular(32),
                                                 ),
-                                                onPressed: () {},
+                                                onPressed: () {
+                                                  Navigator.push(
+                                                      context,
+                                                      MaterialPageRoute(
+                                                          builder: (context) =>
+                                                              ProductDetail(
+                                                                  productItem:
+                                                                      productProvider
+                                                                              .getProductList[
+                                                                          index])));
+                                                },
                                               ),
-                                              const Spacer(),
                                               Text(
-                                                productProvider
+                                                "Price: " +
+                                                    productProvider
                                                         .getProductList[index]
                                                         .price
                                                         .toString() +
                                                     " Birr",
                                                 style: const TextStyle(
                                                   fontWeight: FontWeight.bold,
-                                                  fontSize: 20,
+                                                  color: Color.fromARGB(
+                                                      255, 230, 4, 4),
+                                                  fontSize: 15,
                                                 ),
                                               ),
                                             ],
                                           ),
-                                        ),
-                                      ],
+                                        ],
+                                      ),
                                     ),
-                                  );
-                                }))),
-                  ),
-                ],
-              ),
+                                  ),
+                                ),
+                              );
+                            }))),
+              ],
             ),
           ),
-          floatingActionButton: FloatingActionButton(
-            onPressed: () {},
-            tooltip: 'Increment',
-            child: const Icon(Icons.add),
-          ),
-          bottomNavigationBar: BottomNavigationBar(
-              showSelectedLabels: true,
-              showUnselectedLabels: true,
-              //fixedColor: Colors.redAccent,
-              backgroundColor: Colors.blue,
-              // unselectedItemColor: Colors.white,
-              items: const <BottomNavigationBarItem>[
-                BottomNavigationBarItem(
-                    icon: Icon(Icons.home),
-                    label: "Home",
-                    backgroundColor: Colors.blue),
-                // BottomNavigationBarItem(
-                //     icon: Icon(Icons.search),
-                //     label: 'search'.tr,
-                //     backgroundColor: Colors.red),
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.add),
-                  label: 'Add Product',
-                  backgroundColor: Colors.blue,
-                ),
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.help_outline),
-                  label: 'Aboout',
-                  backgroundColor: Colors.blue,
-                ),
-              ],
-              type: BottomNavigationBarType.shifting,
-              currentIndex: _selectedIndex,
-              selectedItemColor: Colors.white,
-              unselectedLabelStyle: const TextStyle(color: Colors.white),
-              iconSize: 20,
-              onTap: _onItemTapped,
-              elevation: 1)),
-    );
+        ),
+        bottomNavigationBar: const BottomNavigation());
   }
 }

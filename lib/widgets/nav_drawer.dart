@@ -28,7 +28,7 @@ class NavDrawer extends StatelessWidget {
             ),
             ListTile(
               leading: const Icon(Icons.details_rounded),
-              title: const Text('Product Detail'),
+              title: const Text('cart Detail'),
               onTap: () {
                 Navigator.pop(context);
               },
