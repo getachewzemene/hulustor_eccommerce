@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../providers/cart_provider.dart';
-import '../ui/car_detail.dart';
+import '../screens/car_detail.dart';
 
 class CartIcon extends StatelessWidget {
   const CartIcon({Key? key}) : super(key: key);

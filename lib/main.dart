@@ -1,13 +1,13 @@
 import 'package:ecommerce_app/providers/cart_provider.dart';
 import 'package:ecommerce_app/providers/product_provider.dart';
-import 'package:ecommerce_app/ui/car_detail.dart';
-import 'package:ecommerce_app/ui/product_detail.dart';
 import 'package:ecommerce_app/widgets/bottom_navigation.dart';
 import 'package:ecommerce_app/widgets/cart_icon.dart';
 import 'package:ecommerce_app/widgets/item_carousel.dart';
 import 'package:ecommerce_app/widgets/nav_drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
+import 'screens/product_detail.dart';
 
 void main() {
   runApp(const MyApp());
