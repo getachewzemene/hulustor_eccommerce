@@ -26,7 +26,7 @@ class ProductDetail extends StatelessWidget {
                 width: MediaQuery.of(context).size.width,
                 decoration: BoxDecoration(
                     backgroundBlendMode: BlendMode.colorDodge,
-                    color: Colors.grey,
+                    color: const Color.fromARGB(255, 12, 11, 11),
                     image: DecorationImage(
                       image: AssetImage(
                         productItem.imageURL,
@@ -38,10 +38,11 @@ class ProductDetail extends StatelessWidget {
             ),
             Expanded(
               child: Container(
+                  padding: const EdgeInsets.all(10.0),
                   width: MediaQuery.of(context).size.width,
                   decoration: const BoxDecoration(
                     backgroundBlendMode: BlendMode.darken,
-                    color: Color.fromARGB(255, 226, 217, 217),
+                    color: Color.fromARGB(255, 156, 150, 150),
                     borderRadius:
                         BorderRadius.vertical(top: Radius.circular(45)),
                   ),

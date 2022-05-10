@@ -92,24 +92,26 @@ class _MyHomePageState extends State<MyHomePage> {
                                   clipBehavior: Clip.antiAliasWithSaveLayer,
                                   shadowColor: Colors.grey,
                                   color: Colors.amberAccent,
-                                  margin: const EdgeInsets.all(10.0),
+                                  // margin: const EdgeInsets.all(10.0),
                                   elevation: 8,
                                   shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(32)),
                                   child: FittedBox(
                                     child: SizedBox(
                                       height: 400.0,
-                                      width: MediaQuery.of(context).size.width,
+                                      width: 400,
                                       child: Column(
                                         children: <Widget>[
                                           ClipRRect(
                                             borderRadius:
                                                 const BorderRadius.vertical(
-                                                    top: Radius.circular(32),
                                                     bottom:
                                                         Radius.circular(32)),
                                             child: Container(
-                                                height: 300,
+                                                height: 300.0,
+                                                // width: 400,
+                                                padding: const EdgeInsets.only(
+                                                    bottom: 20.0),
                                                 decoration: BoxDecoration(
                                                     image: DecorationImage(
                                                   image: AssetImage(
@@ -118,8 +120,6 @@ class _MyHomePageState extends State<MyHomePage> {
                                                         .imageURL,
                                                   ),
                                                   fit: BoxFit.fill,
-                                                  alignment:
-                                                      Alignment.topCenter,
                                                 ))),
                                           ),
                                           const SizedBox(height: 8),
