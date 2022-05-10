@@ -98,7 +98,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                       borderRadius: BorderRadius.circular(32)),
                                   child: FittedBox(
                                     child: SizedBox(
-                                      height: 400.0,
+                                      height: 420.0,
                                       width: 400,
                                       child: Column(
                                         children: <Widget>[

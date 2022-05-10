@@ -25,11 +25,11 @@ class NavDrawer extends StatelessWidget {
                   )),
               accountName: Padding(
                   padding: const EdgeInsets.only(top: 30.0),
-                  child: Text("Hulu Store", style: _style)),
+                  child: Text("", style: _style)),
               accountEmail: Padding(
                 padding: const EdgeInsets.only(top: 30.0),
                 child: Text(
-                  "hulustore@gmail.com",
+                  "",
                   style: _style,
                 ),
               ),
