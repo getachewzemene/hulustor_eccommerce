@@ -31,7 +31,7 @@ class ProductDetail extends StatelessWidget {
                       image: AssetImage(
                         productItem.imageURL,
                       ),
-                      fit: BoxFit.contain,
+                      fit: BoxFit.fill,
                       alignment: Alignment.topCenter,
                     )),
               ),

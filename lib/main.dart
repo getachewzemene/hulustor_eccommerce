@@ -30,8 +30,8 @@ class MyApp extends StatelessWidget {
           primaryColor: Colors.cyan,
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
-        themeMode: ThemeMode.system,
-        darkTheme: ThemeData.dark(),
+        // themeMode: ThemeMode.system,
+        // darkTheme: ThemeData.dark(),
         home: const MyHomePage(title: 'Hulu Store'),
       ),
     );
@@ -144,6 +144,9 @@ class _MyHomePageState extends State<MyHomePage> {
                                                 MainAxisAlignment.spaceAround,
                                             children: <Widget>[
                                               MaterialButton(
+                                                elevation: 8.0,
+                                                minWidth: 120,
+                                                height: 50,
                                                 color: const Color(0xFF162A49),
                                                 child:
                                                     const Text('view detail'),
