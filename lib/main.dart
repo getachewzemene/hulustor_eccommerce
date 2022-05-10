@@ -26,11 +26,12 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: 'Hulu Store',
         debugShowCheckedModeBanner: false,
-        themeMode: ThemeMode.system,
         theme: ThemeData(
-          primarySwatch: Colors.blue,
+          primaryColor: Colors.cyan,
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
+        themeMode: ThemeMode.system,
+        darkTheme: ThemeData.dark(),
         home: const MyHomePage(title: 'Hulu Store'),
       ),
     );
@@ -79,26 +80,25 @@ class _MyHomePageState extends State<MyHomePage> {
                                     crossAxisSpacing: 8.0,
                                     mainAxisSpacing: 2.0),
                             itemBuilder: (context, index) {
-                              return FittedBox(
-                                child: GestureDetector(
-                                  onTap: (() => Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => ProductDetail(
-                                              productItem: productProvider
-                                                  .getProductList[index])))),
-                                  child: Card(
-                                    semanticContainer: true,
-                                    clipBehavior: Clip.antiAliasWithSaveLayer,
-                                    shadowColor: Colors.grey,
-                                    color: Colors.amberAccent,
-                                    margin: const EdgeInsets.all(10.0),
-                                    elevation: 8,
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(32)),
+                              return GestureDetector(
+                                onTap: (() => Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => ProductDetail(
+                                            productItem: productProvider
+                                                .getProductList[index])))),
+                                child: Card(
+                                  semanticContainer: true,
+                                  clipBehavior: Clip.antiAliasWithSaveLayer,
+                                  shadowColor: Colors.grey,
+                                  color: Colors.amberAccent,
+                                  margin: const EdgeInsets.all(10.0),
+                                  elevation: 8,
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(32)),
+                                  child: FittedBox(
                                     child: SizedBox(
-                                      height: 350.0,
+                                      height: 400.0,
                                       width: MediaQuery.of(context).size.width,
                                       child: Column(
                                         children: <Widget>[
@@ -109,7 +109,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                                     bottom:
                                                         Radius.circular(32)),
                                             child: Container(
-                                                height: 250,
+                                                height: 300,
                                                 decoration: BoxDecoration(
                                                     image: DecorationImage(
                                                   image: AssetImage(

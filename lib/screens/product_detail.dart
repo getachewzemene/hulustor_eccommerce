@@ -13,7 +13,6 @@ class ProductDetail extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey,
       appBar: AppBar(
         title: Text(productItem.name),
         actions: const [CartIcon()],
@@ -24,6 +23,7 @@ class ProductDetail extends StatelessWidget {
             ClipRRect(
               child: Container(
                 height: MediaQuery.of(context).size.height / 3,
+                width: MediaQuery.of(context).size.width,
                 decoration: BoxDecoration(
                     backgroundBlendMode: BlendMode.colorDodge,
                     color: Colors.grey,
@@ -31,36 +31,45 @@ class ProductDetail extends StatelessWidget {
                       image: AssetImage(
                         productItem.imageURL,
                       ),
-                      fit: BoxFit.fill,
+                      fit: BoxFit.contain,
                       alignment: Alignment.topCenter,
                     )),
               ),
-              borderRadius: const BorderRadius.vertical(
-                  top: Radius.circular(32), bottom: Radius.circular(32)),
             ),
-            const SizedBox(
-              height: 5.0,
-            ),
-            const Text("Description"),
-            const SizedBox(
-              height: 5.0,
-            ),
-            Text(productItem.productSummary),
-            const SizedBox(
-              height: 5.0,
-            ),
-            Text("Price: " + productItem.price.toString()),
-            MaterialButton(
-              onPressed: () {
-                Provider.of<CartProvider>(context, listen: false)
-                    .addToCart(productItem);
-              },
-              color: const Color(0xFF162A49),
-              child: const Text('Add to cart'),
-              textColor: Colors.white,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(32),
-              ),
+            Expanded(
+              child: Container(
+                  width: MediaQuery.of(context).size.width,
+                  decoration: const BoxDecoration(
+                    backgroundBlendMode: BlendMode.darken,
+                    color: Color.fromARGB(255, 226, 217, 217),
+                    borderRadius:
+                        BorderRadius.vertical(top: Radius.circular(45)),
+                  ),
+                  child: Column(children: [
+                    const SizedBox(
+                      height: 30.0,
+                    ),
+                    Text(productItem.productSummary),
+                    const SizedBox(
+                      height: 20.0,
+                    ),
+                    Text("Price: " + productItem.price.toString()),
+                    const SizedBox(
+                      height: 20.0,
+                    ),
+                    MaterialButton(
+                      onPressed: () {
+                        Provider.of<CartProvider>(context, listen: false)
+                            .addToCart(productItem);
+                      },
+                      color: const Color.fromARGB(255, 190, 7, 99),
+                      child: const Text('Add to cart'),
+                      textColor: Colors.white,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(32),
+                      ),
+                    )
+                  ])),
             )
           ],
         ),

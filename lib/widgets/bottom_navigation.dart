@@ -26,7 +26,7 @@ class _BottomNavigationState extends State<BottomNavigation> {
         showSelectedLabels: true,
         showUnselectedLabels: true,
         //fixedColor: Colors.redAccent,
-        backgroundColor: Colors.blue,
+        // backgroundColor: Colors.blue,
         // unselectedItemColor: Colors.white,
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
@@ -40,12 +40,10 @@ class _BottomNavigationState extends State<BottomNavigation> {
           BottomNavigationBarItem(
             icon: Icon(Icons.add),
             label: 'Add Product',
-            backgroundColor: Colors.blue,
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.help_outline),
             label: 'Aboout',
-            backgroundColor: Colors.blue,
           ),
         ],
         type: BottomNavigationBarType.shifting,
